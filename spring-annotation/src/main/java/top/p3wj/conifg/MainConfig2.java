@@ -2,6 +2,7 @@ package top.p3wj.conifg;
 
 import org.springframework.context.annotation.*;
 import top.p3wj.bean.Color;
+import top.p3wj.bean.ColorFactoryBean;
 import top.p3wj.bean.Person;
 import top.p3wj.bean.Red;
 import top.p3wj.condition.LinuxCondition;
@@ -60,5 +61,12 @@ public class MainConfig2 {
      *              2)  ImportSelector：返回需要导入的组件的全数组
      *              3)  ImportBeanDefinitionRegistrar 手动注册Bean
      * 4) 使用Spring提供的FactoryBean(工厂Bean)
+     *              1)  默认获取到到是工厂bean调用getObject创建的对象
+     *              2)  要获取工厂Bean本身，我们需要给id前面加一个&
+     *                  &colorFactoryBean
      */
+    @Bean
+    public ColorFactoryBean colorFactoryBean(){
+        return new ColorFactoryBean();
+    }
 }

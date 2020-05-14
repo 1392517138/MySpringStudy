@@ -24,10 +24,18 @@ public class IOCTest {
 
 
     public void printBeans(AnnotationConfigApplicationContext applicationContext) {
-        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-        for (String beanDefinitionName : beanDefinitionNames) {
-            System.out.println(beanDefinitionName);
-        }
+//        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+//        for (String beanDefinitionName : beanDefinitionNames) {
+//            System.out.println(beanDefinitionName);
+//        }
+        //工厂获取的是调用getObject创建的对象
+        Object colorFactoryBean = applicationContext.getBean("colorFactoryBean");
+        Object colorFactoryBean1 = applicationContext.getBean("colorFactoryBean");
+        System.out.println(colorFactoryBean.getClass());
+        System.out.println(colorFactoryBean == colorFactoryBean1);
+        //若就想获取ColorFactoryBean，则前面加上&
+        Object colorFactoryBean2 = applicationContext.getBean("&colorFactoryBean");
+        System.out.println("----"+colorFactoryBean2.getClass());
     }
 
     @Test
