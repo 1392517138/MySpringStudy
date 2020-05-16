@@ -29,8 +29,8 @@ import top.p3wj.service.BookService;
 //includeFilters = Filter[] 指定扫描的时候只需要包含哪些组件
 public class MainConfig {
     //给容器中注册一个Bean；类型为返回值类型；id默认是方法名作为id
-    @Bean("person02")
-    public Person person() {
-        return new Person("lisi", 20);
-    }
+//    @Bean("person02")
+//    public Person person() {
+//        return new Person("lisi", 20);
+//    }
 }

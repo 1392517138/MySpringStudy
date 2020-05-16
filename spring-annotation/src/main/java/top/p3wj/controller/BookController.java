@@ -1,6 +1,8 @@
 package top.p3wj.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import top.p3wj.service.BookService;
 
 /**
  * @author Aaron
@@ -9,4 +11,6 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class BookController {
+    @Autowired
+    private BookService bookService;
 }
