@@ -1,5 +1,6 @@
 package top.p3wj.bean;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 /**
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @description
  * @date 2020/5/14 11:02 AM
  */
-
+@Component
 public class Car {
     public Car(){
         System.out.println("car constructor...");

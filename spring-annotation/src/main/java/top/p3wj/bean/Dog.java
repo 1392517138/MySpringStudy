@@ -16,7 +16,7 @@ import javax.annotation.PreDestroy;
 public class Dog implements ApplicationContextAware {
     ApplicationContext applicationContext;
 //    可以获得IOC容器，这样在其他方法中就可以使用了。这个功能是ApplicationContextAwareProcessor做的
-    @Override
+//    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
 

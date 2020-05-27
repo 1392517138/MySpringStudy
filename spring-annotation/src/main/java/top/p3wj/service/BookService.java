@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import top.p3wj.dao.BookDao;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 
 /**
  * @author Aaron
@@ -17,6 +18,8 @@ import javax.annotation.Resource;
 public class BookService {
 
     @Autowired(required = false)
+//    @Resource(name = "bookDao2")
+//    @Inject
     private BookDao bookDao;
 
     public void print(){

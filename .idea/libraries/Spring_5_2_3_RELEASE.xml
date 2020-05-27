@@ -24,6 +24,7 @@
     <SOURCES>
       <root url="jar://$USER_HOME$/.ideaLibSources/spring-context-5.2.3.RELEASE-sources.jar!/" />
       <root url="jar://$USER_HOME$/.ideaLibSources/spring-core-5.2.3.RELEASE-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/spring-beans-5.2.3.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

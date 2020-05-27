@@ -1,10 +1,14 @@
-### 01 spring-annotation
+# 01 spring-annotation
 
+[TOC]
 
+## 一、组件注册
+
+### 1.1-spring注解驱动开发
 
 ![image-20200511205219602](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511205219602.png)
 
-# I、组件注册
+### 1.2-组件注册 @Configuration
 
 #### 一、导入spring-context
 
@@ -24,11 +28,11 @@
 
 ![image-20200511215403953](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511215403953.png)
 
-3.
+3. 
 
 ![image-20200511215507250](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511215507250.png)
 
-#### 二、实操。Configuration、Bean、ComponentScan(s)、TypeFilter
+#### 1.2-组件注册 Configuration、Bean、ComponentScan(s)、TypeFilter
 
 1. 创建一个Person类
 
@@ -36,32 +40,39 @@
 
 2. 配置beans.xml 
 
-   1. 给一个id方便从容器中获取
+3. 给一个id方便从容器中获取
 
-   2. 可以通过property作为一个属性的赋值
+4. 可以通过property作为一个属性的赋值![image-20200511220207948]((https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511220207948.png)
 
-      ![image-20200511220207948](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511220207948.png)
+**这是以前的一个配置文件**
 
-      **这是以前的一个配置文件**
-
-3. 开始使用，写一个测试类
+1. 开始使用，写一个测试类
 
    1. 通过ClassPathXmlApplicationContext,表示类路径下的一个xml配置文件。**会返回IOC容器**
    2. 可通过getBean加上“id”进行获取。或是类型
 
    ![image-20200511220652858](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511220652858.png)
 
-4. 以前配置文件的方式被替换为了配置类
+
+
+1. 以前配置文件的方式被替换为了配置类
 
    1. 建立一个config.MainConfig
 
    ![image-20200511221104414](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511221104414.png)
 
-   2. 回到MainTest,通过AnnotationConfigApplicationContext注解式的config,它传入的就是这个配置类。相当于是穿配置类的位置。
+   2.回到MainTest,通过AnnotationConfigApplicationContext注解式的config,它传入的就是这个配置类。相当于是穿配置类的位置。
 
 ![image-20200511221947155](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511221947155.png)
 
-		3.	通过getBeanDefinitionNames可获得Bean容器中组件的所有名称
+```java
+	3.	通过getBeanDefinitionNames可获得Bean容器中组件的所有名称
+```
+
+![image-20200511222718056](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511222718056.png)
+
+4. 也可通过getBeanNamesForType
+
 
 ![image-20200511222718056](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200511222718056.png)
 
@@ -147,7 +158,7 @@
 
 **top.p3wj中的每一个类都会进入进行匹配**
 
-#### 三、Scope
+#### 1.3-组件注册 @Scope
 
 ![image-20200512160837963](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200512160837963.png)
 
@@ -192,7 +203,7 @@
 
 ioc容器启动并不会去调用方法创建对象放在容器中。每次获取的时候才会调用方法创建对象。
 
-#### 四、懒加载
+#### 1.4-组件注册@Lazy-bean懒加载
 
 - 单实例bean，默认在容器启动的时候创建对象
 - 懒加载：容器启动不创建对象，第一次使用（获取）Bean创建对象，并初始化
@@ -207,7 +218,7 @@ ioc容器启动并不会去调用方法创建对象放在容器中。每次获�
 
 ![image-20200512181536119](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200512181536119.png)
 
-#### 五、按照条件给容器注入Bean
+#### 1.5-组件注册 @Conditional 按照条件给容器注入Bean
 
 ```java
 @Conditional ,按照一定的条件进行判断，满足条件给容器中注册Bean
@@ -266,7 +277,7 @@ ioc容器启动并不会去调用方法创建对象放在容器中。每次获�
 
 
 
-### 六（一）、@Import导入
+### 1.6-组件注册 @Import快速导入
 
 ```java
 /**
@@ -295,7 +306,7 @@ ioc容器启动并不会去调用方法创建对象放在容器中。每次获�
 
 ![image-20200512203140380](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200512203140380.png)
 
-### 六（二）、@ImportSelector导入
+#### 1.6.1-组件注册 @ImportSelector
 
 ```java
 2)  ImportSelector：返回需要导入的组件的全数组
@@ -345,7 +356,7 @@ return new String[]{};
 
 ![image-20200513211141399](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200513211141399.png)
 
-### 六（三）、@ImportBeanDefination导入
+#### 1.6.2-组件注册 @ImportBeanDefinationRegister
 
 ```java
 ImportBeanDefinitionRegistrar 手动注册Bean
@@ -355,7 +366,7 @@ ImportBeanDefinitionRegistrar 手动注册Bean
 
 ![image-20200513213125884](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200513213125884.png)
 
-#### 注意，import方式注入的名称为全类名
+**注意，import方式注入的名称为全类名**
 
 ![image-20200513235948165](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200513235948165.png)
 
@@ -363,7 +374,7 @@ ImportBeanDefinitionRegistrar 手动注册Bean
 
 
 
-### 七、@FactoryBean
+### 1.7-组件注册 @FactoryBean
 
 ![image-20200514000945452](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514000945452.png)
 
@@ -407,11 +418,13 @@ Reason:
 *                  &colorFactoryBean
 ```
 
-# II、生命周期
+## 二、生命周期
 
-### 一、按照@Bean的方式指定
+### 2.1-生命周期 @Bean指定初始化和销毁方法
 
 在以前，可以指定初始化和销毁方法
+
+1.
 
 ![image-20200514105507290](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514105507290.png)
 
@@ -467,15 +480,21 @@ public class MainConfigOfLifeCycle {
 *          指定init-method和destroy-method方法
 ```
 
-### 二、InitializingBean和DisposableBean
+### 2.2-生命周期 InitializingBean和DisposableBean
 
-![image-20200514122845407](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514122926120.png)
+![image-20200514122845407](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514122845407.png)
+
+![image-20200514122926120](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514122926120.png)
 
 **在这里提出一个问题，@Bean不搭配@Configuration使用跟搭配有什么区别（还未解决）**
 
 
 
-![image-20200514132432275](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514132603373.png)
+![image-20200514132432275](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514132432275.png)
+
+![image-20200514132500329](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514132500329.png)
+
+![image-20200514132603373](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514132603373.png)
 
 **通过包扫描的方式进行注册，同时通过实现接口进行初始化和销毁**
 
@@ -483,9 +502,13 @@ public class MainConfigOfLifeCycle {
  2)、通过让Bean实现InitializingBean（定义初始化逻辑）
 ```
 
-### 三、@PostConstruct和@PreDestroy
+### 2.3-生命周期 @PostConstruct和@PreDestroy
 
-![image-20200514132924546](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514140414660.png)
+![image-20200514132924546](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514132924546.png)
+
+![image-20200514140351680](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514140351680.png)
+
+![image-20200514140414660](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514140414660.png)
 
 这是java规范的注解，目前java8能用
 
@@ -497,9 +520,11 @@ public class MainConfigOfLifeCycle {
 *          @PreDestroy:在容器销毁bean之前通知我们进行清理工作
 ```
 
-### 四、BeanPostProcessor
+### 2.4-生命周期 BeanPostProcessor（后置处理器）
 
-![image-20200514141319899](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514142626963.png)
+![image-20200514141319899](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514141319899.png)
+
+![image-20200514142626963](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514142626963.png)
 
 先创建对象-》〉》〉初始化
 
@@ -512,7 +537,7 @@ public class MainConfigOfLifeCycle {
 *          postProcessAfterInitialization：在初始化之后工作
 ```
 
-### BeanPostProcessor原理
+#### 2.4.1-生命周期 BeanPostProcessor原理
 
 打断点debug一下
 
@@ -520,7 +545,9 @@ public class MainConfigOfLifeCycle {
 
 1.查看调用方法栈，往上依次看
 
-![image-20200514143549752](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514143607149.png)
+![image-20200514143549752](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514143549752.png)
+
+![image-20200514143607149](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514143607149.png)
 
 2.
 
@@ -562,11 +589,13 @@ public class MainConfigOfLifeCycle {
 
 ![image-20200514144722127](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514144722127.png)
 
-**12.创建好后准备初始化**
+12.**创建好后准备初始化**
 
-![image-20200514144918297](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514145300044.png)
+![image-20200514144918297](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514144918297.png)
 
-#### 13.原理体现的地方
+![image-20200514145300044](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514145300044.png)
+
+13.原理体现的地方
 
 ![image-20200514145545659](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514145545659.png)
 
@@ -591,11 +620,13 @@ applyBeanPostProcessorsAfterInitialization 就不看了，类似的
 *      }
 ```
 
-### spring底层对BeanPostProcessor的使用
+#### 2.4.2-生命周期 spring底层对BeanPostProcessor的使用
 
 **我们来看一下ApplicationContextAwareProcessor**，实现的BeanPostProcessor
 
-![image-20200514154132580](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514154831407.png)
+![image-20200514154132580](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514154132580.png)
+
+![image-20200514154831407](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200514154831407.png)
 
 其实看看之前写的MyBeanPostProcessor,也是实现了它的方法
 
@@ -681,7 +712,9 @@ Debug:
 *          都是用BeanPostProcessor来完成的
 ```
 
-### 属性赋值-@Value
+## 三、属性赋值
+
+### 3.1-属性赋值 @Value
 
 ![image-20200515133831844](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200515133831844.png)
 
@@ -731,7 +764,7 @@ ApplicationContext applicationContext2 = new ClassPathXmlApplicationContext("bea
 
 ![image-20200515141715575](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200515141715575.png)
 
-### 采用注解的方式
+### 3.2-属性赋值 @PropertySource加载外部配置文件
 
 ```java
 @PropertySource() 	属性的来源
@@ -759,7 +792,9 @@ ApplicationContext applicationContext2 = new ClassPathXmlApplicationContext("bea
 
 ![image-20200515142409537](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200515142409537.png)
 
-### @Autowired
+## 四、自动装配
+
+### 4.1-自动装配 @Autowired & @Qualifier & @Primary
 
 1.
 
@@ -779,7 +814,7 @@ ApplicationContext applicationContext2 = new ClassPathXmlApplicationContext("bea
 
 
 
-#### 此外注意，在此版本中：
+**此外注意，在此版本中：**
 
 ![image-20200515152416877](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200515152416877.png)
 
@@ -849,9 +884,184 @@ ApplicationContext applicationContext2 = new ClassPathXmlApplicationContext("bea
 
 ![image-20200515161343000](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200515161343000.png)
 
-#### 总结
+**总结**
 
 ![image-20200515162356891](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200515162356891.png)
 
-### 除了@Autowired自动装配外，还有JSR250提供的@Resource和JSR330提供的@Inject
+### 4.2-自动装配 JSR250-@Resource、JSR330-@Inject
+
+![image-20200517172739380](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517172739380.png)
+
+@Resource是默认按照属性的名称
+
+![image-20200517173723812](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517173723812.png)
+
+@Inject需要导入maven依赖
+
+![image-20200517174006293](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517174006293.png)
+
+![image-20200517181450653](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517181450653.png)
+
+![image-20200517181854598](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517181854598.png)
+
+
+
+### 4.3-自动装配 方法、构造器位置的自动装配 & Aware注入Spring底层组件 & 原理 
+
+**@Autowired：**
+
+![image-20200517182013544](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517182013544.png)
+
+1、标注在方法位置
+
+![image-20200517201930625](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517201930625.png)
+
+给Car也加上@Component，通过配置类@ComponentScan扫描进去
+
+![image-20200517202000244](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517202000244.png)
+
+![image-20200517202043578](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517202043578.png)
+
+默认加载ioc容器中的组件，容器启动会调用无参构造器创建对象，再进行初始化赋值等操作
+
+![image-20200517202624049](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517202624049.png)
+
+加到参数上，效果也一样
+
+![image-20200517203018066](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517203018066.png)
+
+![image-20200517203541214](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517203541214.png)
+
+如果只有一个有参构造器，@Autowired可以不用写
+
+![image-20200517205922549](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517205922549.png)
+
+**以@Bean的方式注入**
+
+准备
+
+1.
+
+![image-20200517211806836](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517211806836.png)
+
+2.
+
+![image-20200517211929701](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517211929701.png)
+
+![image-20200517212034370](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517212034370.png)
+
+**自定义**
+
+![image-20200517222851303](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517222851303.png)
+
+传进来这个applicationContext我们就能用，类似这样的有很多
+
+总接口是Aware
+
+![image-20200517222941756](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517222941756.png)
+
+找几个Aware来看一下
+
+![image-20200517225059305](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517225059305.png)
+
+解析字符串的值
+
+![image-20200517225212076](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517225212076.png)
+
+这些Aware都是由相应的XXXAwareProcessor来处理的
+
+我们来看一下怎么将applicationContext注入进来的 
+
+打一个断点：
+
+![image-20200517225638654](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517225638654.png)
+
+![image-20200517225904728](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200517225904728.png)
+
+跟之前是类似的
+
+总结一下
+
+![image-20200518205313640](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518205313640.png)
+
+### 4.4-自动装配 @Profile 根据环境注册Bean
+
+引入c3p0和mysql-connector
+
+![image-20200518205759283](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518205759283.png)
+
+配置dbconfig.properties
+
+![image-20200518210459825](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518210459825.png)
+
+并加载@PropertySource("classpath:/dbconfig.properties")
+
+来自spring的黑科技
+
+![image-20200518210826772](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518210826772.png)
+
+另一种方式,Aware接口
+
+![image-20200518211504970](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518211504970.png)
+
+![image-20200518211734753](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518211734753.png)
+
+那么来看看@Profile
+
+![image-20200518212000740](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518212000740.png)
+
+```java
+* @description Profile:
+*                  Spring为我们提供的可以根据当前环境，动态地激活和切换一些列组件的功能:
+* 开发环境、测试环境、生产环境：
+* 数据源：（/A）（/B）（/C）
+* @Profile 指定组件在哪个环境下才能被注册到容器中。不指定任何环境下都能注册这个组件
+```
+
+```java
+* 1）、加了环境表示的bean,只有这个环境被激活的时候才能被注册到容器中,默认是default环境
+```
+
+![image-20200518212915954](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518212915954.png)
+
+默认是"default",可以看见只有标了"default"才会被加入到容器中
+
+那么怎么切换环境呢？
+
+1.
+
+最简单的方法，使用命令行参数
+
+![image-20200518213755544](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518213755544.png)
+
+![image-20200518213944958](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518213944958.png)
+
+2.代码的方式
+
+```java
+针对于AnnotationConfigApplicationContext
+```
+
+![image-20200518214440915](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518214440915.png)
+
+
+
+配置类一注册进来，容器就启动刷新了，环境还没有设置好
+
+![image-20200518215001987](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518215001987.png)
+
+![image-20200518215437570](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518215437570.png)
+
+3.
+
+如果写在类上，就代表整个类里面的内容是否会被加载
+
+![image-20200518215740276](https://cdn.jsdelivr.net/gh/1392517138/imgRepository@master/image-20200518215740276.png)
+
+```java
+* @Profile 指定组件在哪个环境下才能被注册到容器中。不指定任何环境下都能注册这个组件
+* 1）、加了环境表示的bean,只有这个环境被激活的时候才能被注册到容器中，默认是default环境
+* 2) 、写在配置类上，只有是指定的环境的时候，整个配置类里面的所有配置才能开始生效
+* 3）、没有标注环境标识的bean,任何环境下都会加载
+```
 
